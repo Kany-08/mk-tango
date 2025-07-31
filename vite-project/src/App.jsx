@@ -2,18 +2,25 @@ import { useState } from "react";
 import "./App.css";
 import { FirstScreen } from "./components/FirstScreen/FirstScreen";
 import { Modal } from "./components/Modal/Modal";
+import { AppContext } from "./lib/AppContext";
+import { SubscribeModal } from "./components/SubscribeModal/SubscribeModal";
 
 function App() {
-  const [showModal, setShowModal] = useState(false);
+  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
+
+  const value = {
+    showSubscribeModal,
+    setShowSubscribeModal,
+  };
 
   const success = () => {
-    setShowModal(true);
+    setShowSubscribeModal(true);
   };
   return (
-    <>
+    <AppContext.Provider value={value}>
       <FirstScreen onSubscribe={success} />
-      <Modal show={showModal}>Спасибо за регистрацию!</Modal>
-    </>
+      <SubscribeModal />
+    </AppContext.Provider>
   );
 }
 
